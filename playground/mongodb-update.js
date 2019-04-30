@@ -8,7 +8,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     }
     console.log('Connected to mongoDB Server !')
 
-    //db.collection().findOneAndUpdate({},{ $set{} },{}).then()
+    //db.collection().findOneAndUpdate({},{ $set{},.. },{}).then()
     db.collection('Users').findOneAndUpdate({
         name: 'Jamjoom'
     }, {
