@@ -14,11 +14,11 @@ app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
     //console.log(req.body);
-    var todoObj = new Todo({
-        text: req.body.text,
-        completed: true,
-        completedAt: new Date().toLocaleString()
-    })
+    // var todoObj = new Todo({
+    //     text: req.body.text,
+    //     completed: true,
+    //     completedAt: new Date().toLocaleString()
+    // })
 
     todoObj.save().then((doc) => {
         // console.log('Saved to Mongo', docs)
