@@ -7,9 +7,13 @@ var { Todo } = require('./models/todo');
 // var { User } = require('./models/user');
 
 var app = express();
-const port = process.env.PORT || 3000 ;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+
+app.get('/', (req, res) => {
+    res.send('Hello World !')
+})
 
 app.post('/todos', (req, res) => {
     //console.log(req.body);
@@ -44,7 +48,7 @@ app.get('/todos/:id', (req, res) => {
     }
     Todo.findById(id).then((doc) => {
         if (!doc) {
-            res.status(404).send({completed:'no'});
+            res.status(404).send({ completed: 'no' });
         }
         res.status(200).send({ doc });
     }).catch((e) => {
