@@ -10,7 +10,9 @@ const todos = [{
     text: 'First test todo'
 }, {
     _id: new ObjectID(),
-    text: 'Second test todo'
+    text: 'Second test todo',
+    completed: true,
+    completedAt: 333
 }]
 
 
@@ -142,6 +144,37 @@ describe('DELETE /todos', () => {
         request(app)
             .delete('/todos/123abc')
             .expect(404)
+            .end(done)
+    })
+
+})
+
+describe('PATCH /todos/:id', () => {
+    it('Should update the todo', (done) => {
+        var body = { text: 'Jemii', completed: true }
+        var hexId = todos[0]._id.toHexString();
+        request(app)
+            .patch(`/todos/${hexId}`)
+            .send(body)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.doc.completed).toBe(true)
+                expect(res.body.doc.completedAt).toBeA('string') //as i use new Date().tolocaleString instead of ( new Date().getTime() which return a number || timeStamp )
+            })
+            .end(done)
+    })
+
+    it('Should Clear completedAt when todo is not completed', (done) => {
+        var body = { text: 'GAmaaaaal', completed: false }
+        var hexId = todos[1]._id.toHexString();
+        request(app)
+            .patch(`/todos/${hexId}`)
+            .send(body)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.doc.completed).toBe(false)
+                expect(res.body.doc.completedAt).toNotExist()
+            })
             .end(done)
     })
 })

@@ -82,8 +82,9 @@ app.patch('/todos/:id', (req, res) => {
         body.completed = false;
         body.completedAt = null;
     }
-
-    Todo.findByIdAndUpdate(id, { $set: body }, { new: false }).then((doc) => {
+// new : false -> it return the old doc (which've been updated .. currently notExist)
+// new : true -> it return the new doc (which will replace the old one ... currently Exist)
+    Todo.findByIdAndUpdate(id, { $set: body }, { new: true }).then((doc) => {
         if (!doc) { return res.status(404).send() }
 
         res.send({ doc })
