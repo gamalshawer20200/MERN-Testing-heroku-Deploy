@@ -1,3 +1,5 @@
+require('./config/config.js');
+
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -82,8 +84,8 @@ app.patch('/todos/:id', (req, res) => {
         body.completed = false;
         body.completedAt = null;
     }
-// new : false -> it return the old doc (which've been updated .. currently notExist)
-// new : true -> it return the new doc (which will replace the old one ... currently Exist)
+    // new : false -> it return the old doc (which've been updated .. currently notExist)
+    // new : true -> it return the new doc (which will replace the old one ... currently Exist)
     Todo.findByIdAndUpdate(id, { $set: body }, { new: true }).then((doc) => {
         if (!doc) { return res.status(404).send() }
 

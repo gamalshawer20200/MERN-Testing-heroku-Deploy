@@ -165,7 +165,7 @@ describe('PATCH /todos/:id', () => {
     })
 
     it('Should Clear completedAt when todo is not completed', (done) => {
-        var body = { text: 'GAmaaaaal', completed: false }
+        var body = { text: 'Gamaaaaal', completed: false }
         var hexId = todos[1]._id.toHexString();
         request(app)
             .patch(`/todos/${hexId}`)
